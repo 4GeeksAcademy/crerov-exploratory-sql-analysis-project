@@ -43,9 +43,11 @@ WHERE observation_date = '1998-08-08';
 -- Which region_id has the most observations?
 -- Group by region and count how many times each appears.;
 
-SELECT region_id, COUNT(*)
+SELECT region_id, COUNT(*) AS total
 FROM observations
 GROUP BY region_id;
+ORDER BY total DESC
+LIMIT 1;
 
 
 -- MISSION 7
@@ -77,19 +79,33 @@ FROM observations
 GROUP BY observer
 HAVING COUNT();
 
--- ?????????????????????????????????;
 
 -- MISSION 10
 -- Show the region name (regions.name) for each observation.
 -- Join observations with regions using region_id.;
 
-
+SELECT observations.id, regions.name AS region_name
+FROM observations 
+JOIN regions ON observations.region_id = regions.id;
 
 -- MISSION 11
 -- Show the scientific name of each recorded species (species.scientific_name).
 -- Join observations with species using species_id.;
 
+SELECT observations.id, species.scientific_name
+FROM observations
+JOIN species ON observations.species_id = species.id;
 
 -- MISSION 12
 -- Which is the most observed species in each region?
 -- Group by region and species, and order by count.;
+
+SELECT 
+    regions.name AS region,
+    species.scientific_name,
+    COUNT(*) AS total
+FROM observations 
+JOIN regions ON observations.region_id = regions.id
+JOIN species ON observations.species_id = species.id
+GROUP BY regions.name, species.scientific_name
+ORDER BY regions, total DESC;
