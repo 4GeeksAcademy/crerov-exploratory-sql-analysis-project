@@ -100,12 +100,9 @@ JOIN species ON observations.species_id = species.id;
 -- Which is the most observed species in each region?
 -- Group by region and species, and order by count.;
 
-SELECT 
-    regions.name AS region,
-    species.scientific_name,
-    COUNT(*) AS total
-FROM observations 
-JOIN regions ON observations.region_id = regions.id
+SELECT regions.name AS region, species.scientific_name, COUNT(*) AS total
+FROM observations
 JOIN species ON observations.species_id = species.id
-GROUP BY regions.name, species.scientific_name
-ORDER BY regions, total DESC;
+JOIN regions ON observations.region_id = regions.id
+GROUP BY region, species.scientific_name
+ORDER BY region, total DESC;
