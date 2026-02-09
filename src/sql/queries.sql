@@ -45,7 +45,7 @@ WHERE observation_date = '1998-08-08';
 
 SELECT region_id, COUNT(*) AS total
 FROM observations
-GROUP BY region_id;
+GROUP BY region_id
 ORDER BY total DESC
 LIMIT 1;
 
@@ -54,10 +54,10 @@ LIMIT 1;
 -- What are the 5 most frequent species_id?
 --Group, order by descending count, and limit the result.;
 
-SELECT species_id, COUNT(*)
+SELECT species_id, COUNT(*) 
 FROM observations
 GROUP BY species_id
-ORDER BY species_id DESC
+ORDER BY COUNT(*) DESC
 LIMIT 5;
 
 -- MISSION 8
@@ -74,10 +74,11 @@ HAVING COUNT(species_id)<5;
 -- Which observers (observer) recorded the most observations?
 -- Group by observer name and count the records.;
 
-SELECT observer
+SELECT observer, COUNT(*) AS total
 FROM observations
 GROUP BY observer
-HAVING COUNT();
+ORDER BY total DESC;
+
 
 
 -- MISSION 10
